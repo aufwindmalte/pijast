@@ -1,0 +1,29 @@
+[Unit]
+Description=PIJAST - Surface Pen Touchscreen Toggle
+Documentation=https://github.com/aufwindmalte/pijast
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/pijast/pijast.py
+Restart=always
+RestartSec=5
+Environment=DISPLAY=:0
+
+# Run as the user who installed the service
+User=%i
+Group=input
+
+# Ensure we have access to input devices
+SupplementaryGroups=input
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/pijast
+
+[Install]
+WantedBy=default.target
